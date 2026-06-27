@@ -15,11 +15,17 @@
 #   LISTEN_PORT   HTTP port to listen on.    (default: 80)
 #   WEB_ROOT      Directory to serve.        (default: the repo root)
 #   SITE_NAME     nginx site/config name.    (default: hepeer)
+#   ENABLE_HTTPS  "1" to also obtain a Let's Encrypt cert and turn on HTTPS
+#                 (runs setup-https.sh after nginx is up).  (default: 0)
+#   EMAIL         Contact email passed through to setup-https.sh when
+#                 ENABLE_HTTPS=1.                            (default: none)
 #
 # Examples:
 #   sudo ./inizio/setup-nginx.sh
 #   sudo SERVER_NAME=hepeer.example.com ./inizio/setup-nginx.sh
 #   sudo SERVER_NAME=_ LISTEN_PORT=8080 ./inizio/setup-nginx.sh
+#   sudo SERVER_NAME=www.hepeer.com ENABLE_HTTPS=1 EMAIL=admin@hepeer.com \
+#        ./inizio/setup-nginx.sh
 #
 set -euo pipefail
 
@@ -33,6 +39,8 @@ SERVER_NAME="${SERVER_NAME:-hepeer.local}"
 LISTEN_PORT="${LISTEN_PORT:-80}"
 WEB_ROOT="${WEB_ROOT:-$REPO_ROOT}"
 SITE_NAME="${SITE_NAME:-hepeer}"
+ENABLE_HTTPS="${ENABLE_HTTPS:-1}"
+EMAIL="${EMAIL:-}"
 
 log()  { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
 warn() { printf '\033[1;33m[!]\033[0m %s\n' "$*" >&2; }
@@ -47,6 +55,7 @@ if [[ "${EUID}" -ne 0 ]]; then
     log "Elevating privileges with sudo…"
     exec sudo -E SERVER_NAME="$SERVER_NAME" LISTEN_PORT="$LISTEN_PORT" \
                WEB_ROOT="$WEB_ROOT" SITE_NAME="$SITE_NAME" \
+               ENABLE_HTTPS="$ENABLE_HTTPS" EMAIL="$EMAIL" \
                bash "${BASH_SOURCE[0]}" "$@"
   fi
   die "Please run as root (this script writes to /etc/nginx)."
@@ -136,6 +145,22 @@ if command -v systemctl >/dev/null 2>&1; then
   systemctl reload nginx 2>/dev/null || systemctl restart nginx
 else
   nginx -s reload 2>/dev/null || nginx
+fi
+
+# --- Turn on HTTPS via Let's Encrypt (default) ----------------------------
+# HTTPS is on by default. It's skipped for non-public names (Let's Encrypt
+# can't certify them), and can be disabled explicitly with ENABLE_HTTPS=0.
+if [[ "$ENABLE_HTTPS" == "1" ]]; then
+  case "$SERVER_NAME" in
+    _|localhost|*.local)
+      warn "Skipping HTTPS: '$SERVER_NAME' is not a public domain Let's Encrypt
+          can certify. Re-run with a real SERVER_NAME to enable HTTPS, or set
+          ENABLE_HTTPS=0 to silence this." ;;
+    *)
+      log "Enabling HTTPS — handing off to setup-https.sh for ${SERVER_NAME}…"
+      EMAIL="$EMAIL" SERVER_NAME="$SERVER_NAME" \
+        bash "${SCRIPT_DIR}/setup-https.sh" ;;
+  esac
 fi
 
 # --- Done -----------------------------------------------------------------
