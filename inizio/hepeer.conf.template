@@ -1,0 +1,52 @@
+##
+# nginx server block for the Hepeer static website.
+#
+# This file is a TEMPLATE. The placeholders __SERVER_NAME__, __WEB_ROOT__ and
+# __LISTEN_PORT__ are substituted by setup-nginx.sh when the site is installed.
+# You normally don't edit this file directly — run setup-nginx.sh instead.
+##
+
+server {
+    listen      __LISTEN_PORT__;
+    listen      [::]:__LISTEN_PORT__;
+
+    server_name __SERVER_NAME__;
+
+    # The site is a set of plain static HTML/CSS/JS files.
+    root  __WEB_ROOT__;
+    index index.html plans.html;
+
+    # Don't leak nginx version in error pages / headers.
+    server_tokens off;
+
+    # gzip text assets — cheap win for HTML/CSS/JS.
+    gzip            on;
+    gzip_vary       on;
+    gzip_min_length 256;
+    gzip_types      text/plain text/css application/javascript application/json
+                    image/svg+xml application/xml;
+
+    # Serve the requested file, fall back to extension-less .html
+    # (so /plans works as well as /plans.html), then to a 404.
+    location / {
+        try_files $uri $uri/ $uri.html =404;
+    }
+
+    # Long-lived caching for fingerprint-free static assets.
+    location /assets/ {
+        access_log off;
+        expires    7d;
+        add_header Cache-Control "public";
+    }
+
+    # HTML should always be revalidated so deploys are picked up immediately.
+    location ~* \.html$ {
+        expires -1;
+        add_header Cache-Control "no-cache";
+    }
+
+    # Hide dotfiles (e.g. .git) just in case the web root overlaps the repo.
+    location ~ /\.(?!well-known) {
+        deny all;
+    }
+}
