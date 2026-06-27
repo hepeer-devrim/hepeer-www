@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plans · Hepeer</title>
+  <meta name="description" content="Simple Hepeer plans that grow with your practice — start free, upgrade when you’re ready.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark"><span class="ms">cardiology</span></span>
+        <span class="brand-name">hepeer</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html#features" class="nav-link" data-i18n="navPlatform">Platform</a>
+        <a href="index.html#how" class="nav-link" data-i18n="navHow">How it works</a>
+        <a href="index.html#ai" class="nav-link" data-i18n="navAi">AI</a>
+        <a href="#top" class="nav-link is-active" data-i18n="navPlans">Plans</a>
+        <a href="about.html" class="nav-link" data-i18n="navAbout">About</a>
+      </nav>
+      <div class="header-actions">
+        <div class="seg seg-lang" role="group" aria-label="Language">
+          <button type="button" data-lang="en">EN</button>
+          <button type="button" data-lang="tr">TR</button>
+          <button type="button" data-lang="de">DE</button>
+        </div>
+        <a href="index.html#contact" class="text-link" data-i18n="bookCall">Book a call</a>
+        <a href="index.html#contact" class="btn-ink"><span data-i18n="requestInvite">Request an invite</span><span class="ms">arrow_forward</span></a>
+      </div>
+    </div>
+  </header>
+
+  <a id="top"></a>
+
+  <!-- HERO + TOGGLE -->
+  <section class="hero">
+    <span class="eyebrow" data-i18n="plansEyebrow">Plans</span>
+    <h1 data-i18n="plansTitle">Simple plans that grow with your practice.</h1>
+    <p class="hero-sub" data-i18n="plansSub">Start free, upgrade when you’re ready. No setup fees — your data stays 100% yours.</p>
+    <div class="hero-toggle">
+      <div class="seg seg-billing" role="group" aria-label="Billing period">
+        <button type="button" data-billing="monthly" data-i18n="billMonthly">Monthly</button>
+        <button type="button" data-billing="yearly" data-i18n="billYearly">Yearly</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING CARDS -->
+  <section class="pricing">
+
+    <!-- FREE -->
+    <div class="plan">
+      <div class="plan-name" data-i18n="freeName">Free</div>
+      <div class="plan-price"><span class="amount" data-i18n="freePrice">Always free</span></div>
+      <p class="plan-desc" data-i18n="freeDesc">Everything a solo practitioner needs to get started.</p>
+      <a href="index.html#contact" class="plan-cta plan-cta--ghost" data-i18n="freeCta">Start free</a>
+      <div class="plan-includes" data-i18n="freeIncludes">What’s included</div>
+      <ul class="feature-list">
+        <li><span class="ms">check_circle</span><span data-i18n="fPatientInfo">Patient information management</span></li>
+        <li><span class="ms">check_circle</span><span data-i18n="fBooking">Booking & reservations with calendar</span></li>
+        <li><span class="ms">check_circle</span><span data-i18n="fShares5">5 HEP shares per week</span></li>
+        <li><span class="ms">check_circle</span><span data-i18n="fLibrary">Hepeer Exercise Library (incl. videos)</span></li>
+        <li><span class="ms">check_circle</span><span data-i18n="fUsers1">1 user</span></li>
+      </ul>
+    </div>
+
+    <!-- CLINIC (highlighted) -->
+    <div class="plan plan--featured">
+      <div class="dotgrid"></div>
+      <div class="plan-body">
+        <div class="plan-head">
+          <div class="plan-name" data-i18n="clinicName">Clinic</div>
+          <span class="plan-badge" data-i18n="clinicBadge">Most popular</span>
+        </div>
+        <div class="plan-price">
+          <span class="amount" id="clinicAmount">€39</span>
+          <span class="suffix" id="clinicSuffix">/mo</span>
+        </div>
+        <div class="plan-save" id="clinicSave" hidden>Save 20% billed yearly</div>
+        <p class="plan-desc" data-i18n="clinicDesc">For growing practices that share without limits.</p>
+        <a href="index.html#contact" class="plan-cta plan-cta--primary"><span data-i18n="clinicCta">Start Clinic</span><span class="ms">arrow_forward</span></a>
+        <div class="plan-includes" data-i18n="clinicEverything">Everything in Free, plus</div>
+        <ul class="feature-list">
+          <li><span class="ms">check_circle</span><span data-i18n="fUnlimited">Unlimited HEP creation & sharing</span></li>
+          <li><span class="ms">check_circle</span><span data-i18n="fTeamUsers">Multiple team users</span></li>
+          <li><span class="ms">check_circle</span><span data-i18n="fPayments">Monthly or yearly billing</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ENTERPRISE -->
+    <div class="plan">
+      <div class="plan-name" data-i18n="entName">Enterprise</div>
+      <div class="plan-price"><span class="amount" data-i18n="entPrice">Custom</span></div>
+      <p class="plan-desc" data-i18n="entDesc">For organisations with bespoke needs.</p>
+      <a href="index.html#contact" class="plan-cta plan-cta--ink" data-i18n="entCta">Contact sales</a>
+      <div class="plan-includes" data-i18n="entEverything">Everything in Clinic, plus</div>
+      <ul class="feature-list">
+        <li><span class="ms ent">check_circle</span><span data-i18n="fLicensing">Custom-fit licensing agreement</span></li>
+        <li><span class="ms ent">check_circle</span><span data-i18n="fSupport">Dedicated onboarding & support</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="compare">
+    <h2 data-i18n="comparisonTitle">Compare plans</h2>
+    <div class="compare-card">
+      <div class="compare-row compare-head">
+        <div class="cell-feature" data-i18n="tblFeatures">Features</div>
+        <div class="cell" data-i18n="freeName">Free</div>
+        <div class="cell col-clinic" data-i18n="clinicName">Clinic</div>
+        <div class="cell" data-i18n="entName">Enterprise</div>
+      </div>
+      <div class="compare-body" id="compareBody"></div>
+    </div>
+    <p class="price-note" data-i18n="priceNote">Prices shown are placeholders — confirm your final pricing before launch.</p>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-card">
+      <div class="dotgrid"></div>
+      <div class="cta-body">
+        <h2 data-i18n="plansCtaTitle">Start free in minutes.</h2>
+        <p data-i18n="plansCtaSub">Create your first HEP today and upgrade whenever your practice is ready.</p>
+        <div class="cta-actions">
+          <a href="index.html#contact" class="btn-light"><span data-i18n="requestInvite">Request an invite</span><span class="ms">arrow_forward</span></a>
+          <a href="index.html#contact" class="btn-outline" data-i18n="bookCall">Book a call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="brand">
+          <span class="brand-mark"><span class="ms">cardiology</span></span>
+          <span class="brand-name">hepeer</span>
+        </a>
+        <p class="footer-tagline" data-i18n="footTagline">The next-generation digital health platform for creating, sharing and tracking AI-powered home exercise programs.</p>
+      </div>
+      <div>
+        <div class="footer-col-title" data-i18n="footProduct">Product</div>
+        <div class="footer-links">
+          <a href="index.html#features" data-i18n="navPlatform">Platform</a>
+          <a href="#top" data-i18n="navPlans">Plans</a>
+          <a href="index.html#ai" data-i18n="navAi">AI</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title" data-i18n="footCompany">Company</div>
+        <div class="footer-links">
+          <a href="about.html" data-i18n="footAbout">About</a>
+          <a href="index.html#contact" data-i18n="footContact">Contact us</a>
+          <a href="#" data-i18n="footCareers">Careers</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title" data-i18n="footGet">Get started</div>
+        <div class="footer-links">
+          <a href="index.html#contact" data-i18n="requestInvite">Request an invite</a>
+          <a href="index.html#contact" data-i18n="bookCall">Book a call</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-i18n="footRights">© 2026 Hepeer · Home Exercise Programs</span>
+      <span class="legal">
+        <a href="#" data-i18n="footPrivacy">Privacy</a>
+        <a href="#" data-i18n="footTerms">Terms</a>
+      </span>
+    </div>
+  </footer>
+
+</div>
+<script src="assets/i18n.plans.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
